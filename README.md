@@ -9,5 +9,5 @@ Python scripts to enable SFC provisioning for OpenDaylight Controller
 2. sfc_config_util.py script can be used for generating config scripts that can be used for
    configuring OpenDaylight controller.
 
-Usage: sfc_config_util.py <config json filename>
+Usage: sfc_config_util.py {config json filename}
 
