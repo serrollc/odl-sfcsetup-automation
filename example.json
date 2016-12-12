@@ -1,0 +1,218 @@
+{
+	    "controller": {
+                "name":"Node0",
+                "user":"admin",
+                "password":"admin",
+                "ip-address": "172.16.11.10",
+                "port": "8181"
+		},
+        "service-nodes": [
+            {
+            "name":"Node05-SN-SFF",
+            "ip-address": "172.16.9.22"
+            },
+
+            {
+            "name":"Node05-SN-Client",
+            "ip-address": "172.16.9.32"
+            },
+
+            {
+            "name":"Node05-SN-Server",
+            "ip-address": "172.16.9.42"
+            },
+
+            {
+            "name":"Node06-SN-SFF",
+            "ip-address": "172.16.9.23"
+            },
+
+            {
+            "name":"Node06-SN-SF1",
+            "ip-address": "172.16.9.33"
+            },
+
+            {
+            "name":"Node06-SN-SF2",
+            "ip-address": "172.16.9.43"
+            },
+
+            {
+            "name":"Node06-SN-SF3",
+            "ip-address": "172.16.9.53"
+            }
+        ],
+
+	    "service-functions": [
+            {
+            "name" : "SF1",
+            "ip-address": "172.16.9.33",
+            "type": "dpi",
+            "sff_name": "Node06-SFF1",
+            "service_node": "Node06-SF1"
+            },
+
+            {
+            "name" : "SF2",
+            "ip-address": "172.16.9.43",
+            "type": "firewall",
+            "sff_name": "Node06-SFF1",
+            "service_node": "Node06-SF2"
+            },
+
+            {
+            "name" : "SF3",
+            "ip-address": "172.16.9.53",
+            "type": "nat",
+            "sff_name": "Node06-SFF1",            
+            "service_node": "Node06-SF3"
+            }
+        ],
+
+	    "service-function-forwarders": [
+                {
+                "name": "Node05-SFF1",
+                "ip-address": "172.16.9.22",
+                "service_node": "Node05-SN-SFF",
+                "service_function": []
+                }, 
+
+                {
+                "name": "Node05-SFF2",
+                "ip-address": "172.16.9.32",
+                "service_node": "Node05-SN-Client",
+                "service_function": []
+                },
+
+                {
+                "name": "Node05-SFF3",
+                "ip-address": "172.16.9.42",
+                "service_node": "Node05-SN-Server",
+                "service_function": []
+                },
+
+                {
+                "name": "Node06-SFF1",
+                "ip-address": "172.16.9.23",
+                "service_node": "Node06-SN-SFF",
+                "service_function": ["SF1", "SF2", "SF3"]
+                }
+
+            ],
+
+ 	    "service-function-chains": [
+                {
+                "name": "Node06-SFC1",
+                "symmetric": "true",
+                "service_function": ["SF1"]
+                },
+
+                {
+                "name": "Node06-SFC2",
+                "symmetric": "true",
+                "service_function": ["SF2", "SF3"]
+                }
+		],
+
+        "service-function-path" : "to be auto created from service-function-chains",
+        "rendered-service-path" : "to be auto created from service-function-chains and service-function-path",
+
+        "acls" : [
+            {
+            "name" : "Endpoint-http-client",
+            "type" : "ipv4-acl",
+            "aces" : [
+                    {
+                    "name": "webmail",
+                    "proto": 6,
+                    "sprange": [0, 0],
+                    "dprange": [80, 80],
+                    "siprange": "192.168.2.0/24",
+                    "diprange": "192.168.2.0/24",
+                    "action" : "Node06-SFC1", 
+                    "direction": "Forward"
+                    }
+
+                ]
+            },
+            {
+            "name" : "Endpoint-http-server",
+            "type" : "ipv4-acl",
+            "aces" : [
+                    {
+                    "name": "webmail",
+                    "proto": 6,
+                    "dprange": [0, 0],
+                    "sprange": [80, 80],
+                    "siprange": "192.168.2.0/24",
+                    "diprange": "192.168.2.0/24",
+                    "action" : "Node06-SFC1", 
+                    "direction": "Reverse"
+                    }
+
+                ]
+            },
+            {
+            "name" : "Endpoint-ssh-client",
+            "type" : "ipv4-acl",
+            "aces" : [
+                    {
+                    "name": "ssh",
+                    "proto": 6,
+                    "sprange": [0, 0],
+                    "dprange": [22, 22],
+                    "siprange": "192.168.2.0/24",
+                    "diprange": "192.168.2.0/24",
+                    "action" : "Node06-SFC2",
+                    "direction": "Forward"
+                    }
+
+                ]
+            },
+            {
+            "name" : "Endpoint-ssh-server",
+            "type" : "ipv4-acl",
+            "aces" : [
+                    {
+                    "name": "ssh",
+                    "proto": 6,
+                    "sprange": [22, 22],
+                    "dprange": [0, 0],
+                    "siprange": "192.168.2.0/24",
+                    "diprange": "192.168.2.0/24",
+                    "action" : "Node06-SFC2",
+                    "direction": "Reverse"
+                    }
+
+                ]
+            }
+        ],
+
+        "service-function-classifiers": [
+            {
+            "name": "scl1",
+            "sff": "Node05-SFF3",
+            "interface": "veth-br",
+            "acl":"Endpoint-http-server"
+            },
+            {
+            "name": "scl2",
+            "sff": "Node05-SFF3",
+            "interface": "veth-br",
+            "acl":"Endpoint-ssh-server"
+            }, 
+            {
+            "name": "scl3",
+            "sff": "Node05-SFF2",
+            "interface": "veth-br",
+            "acl":"Endpoint-http-client"
+            },
+            {
+            "name": "scl4",
+            "sff": "Node05-SFF2",
+            "interface": "veth-br",
+            "acl":"Endpoint-ssh-client"
+            }  
+        ]
+}
+
