@@ -11,3 +11,9 @@ Python scripts to enable SFC provisioning for OpenDaylight Controller
 
 Usage: sfc_config_util.py {config json filename}
 
+
+Requirements for hosts:
+1. Ubuntu 14.04 x86_64 LTS - trusty
+2. user used for configuration should be part of sudoer's list and should be set for nopassword
+   TBD: script to be checkedin
+3. git to be already installed

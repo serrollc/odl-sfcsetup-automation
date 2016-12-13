@@ -1,0 +1,46 @@
+{
+    "controller":
+        {
+        "ip":"172.16.9.10",
+        "user":"admin",
+        "password":"admin"
+        },
+    "client":
+        {
+        "ip":"172.16.9.32",
+        "overlay_ip":"192.168.2.1",
+        "user":"serro",
+        "password":"abcd1234"
+        },
+    "server":
+        {
+        "ip":"172.16.9.42",
+        "overlay_ip":"192.168.2.2",
+        "user":"serro",
+        "password":"abcd1234"
+        },
+    "SF":[
+            {
+            "ip":"172.16.9.33",
+            "user":"serro",
+            "password":"abcd1234"
+            },
+            {
+            "ip":"172.16.9.43",
+            "user":"serro",
+            "password":"abcd1234"
+            },
+            {
+            "ip":"172.16.9.53",
+            "user":"serro",
+            "password":"abcd1234"
+            }
+    ],
+    "SFF": [
+            {
+            "ip":"172.16.9.23",
+            "user":"serro",
+            "password":"abcd1234"
+            }
+    ]
+}
