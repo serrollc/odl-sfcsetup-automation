@@ -35,6 +35,7 @@ Preparing for building POC.
     b. Edit my_odl_config.json as per your test topology
     c. Generate ODL configuration 
        python sfc_config_util.py my_odl_config.json
+       python sfc_delete_util.py my_odl_config.json
 
 Installing and Running Services.
 
