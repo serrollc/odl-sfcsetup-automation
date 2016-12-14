@@ -53,15 +53,15 @@ Installing and Running Services.
     a. sh +x config_all.sh my_odl_config.json 
     Above script will configure all required objects in ODL. If you wish to configure
     each object separately and observe configuration in SFC UI, following below steps
-    a. python gen_config_ServiceNode.py my_odl_config.json
-    b. python gen_config_ServiceFunctions.py my_odl_config.json
-    c. python gen_config_ServiceFunctionsForwarders.py my_odl_config.json
-    d. python gen_config_ServiceFunctionMetadata.py my_odl_config.json
-    e. python gen_config_ServiceFunctionChains.py  my_odl_config.json
-    f. python gen_config_ServiceFunctionPaths.py   my_odl_config.json 
-    g. python gen_config_RenderedServicePath.py    my_odl_config.json
-    h. python gen_config_ServiceFunctionACLs.py    my_odl_config.json
-    i. python gen_config_ServiceFunctionClassifiers.py my_odl_config.json
+    a. python gen_config_ServiceNode.py 
+    b. python gen_config_ServiceFunctions.py 
+    c. python gen_config_ServiceFunctionsForwarders.py
+    d. python gen_config_ServiceFunctionMetadata.py
+    e. python gen_config_ServiceFunctionChains.py
+    f. python gen_config_ServiceFunctionPaths.py
+    g. python gen_config_RenderedServicePath.py
+    h. python gen_config_ServiceFunctionACLs.py
+    i. python gen_config_ServiceFunctionClassifiers.py
 
 3. Check Traffic traversing through the SFC.
    1. ssh to Client Node and execute below command
