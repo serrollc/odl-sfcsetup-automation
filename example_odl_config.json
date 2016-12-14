@@ -3,15 +3,10 @@
                 "name":"Node0",
                 "user":"admin",
                 "password":"admin",
-                "ip-address": "172.16.11.10",
+                "ip-address": "172.16.9.10",
                 "port": "8181"
 		},
         "service-nodes": [
-            {
-            "name":"Node05-SN-SFF",
-            "ip-address": "172.16.9.22"
-            },
-
             {
             "name":"Node05-SN-Client",
             "ip-address": "172.16.9.32"
@@ -184,25 +179,25 @@
         "service-function-classifiers": [
             {
             "name": "scl1",
-            "sff": "Node05-SFF3",
+            "sff": "Node05-SFF2",
             "interface": "veth-br",
             "acl":"Endpoint-http-server"
             },
             {
             "name": "scl2",
-            "sff": "Node05-SFF3",
+            "sff": "Node05-SFF2",
             "interface": "veth-br",
             "acl":"Endpoint-ssh-server"
             }, 
             {
             "name": "scl3",
-            "sff": "Node05-SFF2",
+            "sff": "Node05-SFF1",
             "interface": "veth-br",
             "acl":"Endpoint-http-client"
             },
             {
             "name": "scl4",
-            "sff": "Node05-SFF2",
+            "sff": "Node05-SFF1",
             "interface": "veth-br",
             "acl":"Endpoint-ssh-client"
             }  

@@ -2,8 +2,8 @@
     "controller":
         {
         "ip":"172.16.9.10",
-        "user":"admin",
-        "password":"admin",
+        "user":"serro",
+        "password":"abcd1234",
         "dist":"",
         "base_dir":"sfc-demo-base"
         },

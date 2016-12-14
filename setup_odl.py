@@ -53,7 +53,7 @@ return_code = validate_and_load_input(sys.argv[1])
 if return_code == False :
     print "____________________________________________"
 else:
-    print "Generating setup files ..."
+    print "Starting ODL setup..."
     #print gUserInputData['odl-configuration']['service-function-forwarders'][1]['ip-address']
 
 #create outpur file name as script_folder + output.py
@@ -84,48 +84,48 @@ if 'YES' in outdata:
    
     if gUserInputData['controller']['dist'] == "":
         if gUserInputData['controller']['base_dir'] == "":
-            ssh_session.sendline ("sudo sh /tmp/"+gOdlCleanStartFile + " " +  gOdlDefaultDist + " " + gOdlDefaultBaseDir) 
+            ssh_session.sendline ("sh /tmp/"+gOdlCleanStartFile + " " +  gOdlDefaultDist + " " + gOdlDefaultBaseDir) 
         else:
-            ssh_session.sendline ("sudo sh /tmp/"+gOdlCleanStartFile + " " +  gOdlDefaultDist + " " + gUserInputData['controller']['base_dir']) 
+            ssh_session.sendline ("sh /tmp/"+gOdlCleanStartFile + " " +  gOdlDefaultDist + " " + gUserInputData['controller']['base_dir']) 
     else:
         if gUserInputData['controller']['base_dir'] == "":
-            ssh_session.sendline ("sudo sh /tmp/"+gOdlCleanStartFile + " " +  gUserInputData['controller']['dist'] + " " + gOdlDefaultBaseDir) 
+            ssh_session.sendline ("sh /tmp/"+gOdlCleanStartFile + " " +  gUserInputData['controller']['dist'] + " " + gOdlDefaultBaseDir) 
         else:
-            ssh_session.sendline ("sudo sh /tmp/"+gOdlCleanStartFile + " " +  gUserInputData['controller']['dist'] + " " + gUserInputData['controller']['base_dir']) 
+            ssh_session.sendline ("sh /tmp/"+gOdlCleanStartFile + " " +  gUserInputData['controller']['dist'] + " " + gUserInputData['controller']['base_dir']) 
     i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
     outdata = ssh_session.before
         
 
 else:
-    print "Ovs not installed on end host. Doing install and config"
+    print "ODL not installed on end host. Doing install and config"
     ssh_apis.ssh_sftp(gUserInputData['controller']['ip'],gUserInputData['controller']['user'],gUserInputData['controller']['password'], odlStartFile, "/tmp/"+gOdlCleanStartFile)
     ssh_apis.ssh_sftp(gUserInputData['controller']['ip'],gUserInputData['controller']['user'],gUserInputData['controller']['password'], odlSetupFile, "/tmp/"+gOdlSetupFile)
 
     #install odl
     if gUserInputData['controller']['dist'] == "":
         if gUserInputData['controller']['base_dir'] == "":
-            ssh_session.sendline ("sudo sh /tmp/"+gOdlSetupFile + " " +  gOdlDefaultDist + " " + gOdlDefaultBaseDir) 
+            ssh_session.sendline ("sh /tmp/"+gOdlSetupFile + " " +  gOdlDefaultDist + " " + gOdlDefaultBaseDir) 
         else:
-            ssh_session.sendline ("sudo sh /tmp/"+gOdlSetupFile + " " +  gOdlDefaultDist + " " + gUserInputData['controller']['base_dir']) 
+            ssh_session.sendline ("sh /tmp/"+gOdlSetupFile + " " +  gOdlDefaultDist + " " + gUserInputData['controller']['base_dir']) 
     else:
         if gUserInputData['controller']['base_dir'] == "":
-            ssh_session.sendline ("sudo sh /tmp/"+gOdlSetupFile + " " +  gUserInputData['controller']['dist'] + " " + gOdlDefaultBaseDir) 
+            ssh_session.sendline ("sh /tmp/"+gOdlSetupFile + " " +  gUserInputData['controller']['dist'] + " " + gOdlDefaultBaseDir) 
         else:
-            ssh_session.sendline ("sudo sh /tmp/"+gOdlSetupFile + " " +  gUserInputData['controller']['dist'] + " " + gUserInputData['controller']['base_dir']) 
+            ssh_session.sendline ("sh /tmp/"+gOdlSetupFile + " " +  gUserInputData['controller']['dist'] + " " + gUserInputData['controller']['base_dir']) 
     i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
     outdata = ssh_session.before
 
     #stop start odl
     if gUserInputData['controller']['dist'] == "":
         if gUserInputData['controller']['base_dir'] == "":
-            ssh_session.sendline ("sudo sh /tmp/"+gOdlCleanStartFile + " " +  gOdlDefaultDist + " " + gOdlDefaultBaseDir) 
+            ssh_session.sendline ("sh /tmp/"+gOdlCleanStartFile + " " +  gOdlDefaultDist + " " + gOdlDefaultBaseDir) 
         else:
-            ssh_session.sendline ("sudo sh /tmp/"+gOdlCleanStartFile + " " +  gOdlDefaultDist + " " + gUserInputData['controller']['base_dir']) 
+            ssh_session.sendline ("sh /tmp/"+gOdlCleanStartFile + " " +  gOdlDefaultDist + " " + gUserInputData['controller']['base_dir']) 
     else:
         if gUserInputData['controller']['base_dir'] == "":
-            ssh_session.sendline ("sudo sh /tmp/"+gOdlCleanStartFile + " " +  gUserInputData['controller']['dist'] + " " + gOdlDefaultBaseDir) 
+            ssh_session.sendline ("sh /tmp/"+gOdlCleanStartFile + " " +  gUserInputData['controller']['dist'] + " " + gOdlDefaultBaseDir) 
         else:
-            ssh_session.sendline ("sudo sh /tmp/"+gOdlCleanStartFile + " " +  gUserInputData['controller']['dist'] + " " + gUserInputData['controller']['base_dir']) 
+            ssh_session.sendline ("sh /tmp/"+gOdlCleanStartFile + " " +  gUserInputData['controller']['dist'] + " " + gUserInputData['controller']['base_dir']) 
 
     i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
     outdata = ssh_session.before

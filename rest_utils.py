@@ -35,7 +35,7 @@ def post(host, port, username, password, uri, data, debug=False):
     r.raise_for_status()
     time.sleep(5)
 
-def del(host, port, username, password, uri, data, debug=False):
+def delete(host, port, username, password, uri, data, debug=False):
     '''Perform a DELETE rest operation, using the URL and data provided'''
 
     url='http://'+host+":"+port+uri

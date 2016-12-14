@@ -68,9 +68,9 @@ for node in gUserInputData['SF']:
     ssh_session = ssh_apis.ssh_login(node['ip'],node['user'],node['password'])
 
     #print "starting install of required packages.."
-    ssh_session.sendline ("sudo apt-get install python-pip git -y")
-    i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
-    outdata = ssh_session.before
+    #ssh_session.sendline ("sudo apt-get install python-pip git -y")
+    #i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
+    #outdata = ssh_session.before
 
 
     ssh_session.sendline ("sudo pkill -f sfc_agent.py")
@@ -87,7 +87,7 @@ for node in gUserInputData['SF']:
 
     #print "starting install"
     #print "cd /tmp/; sudo pip3 install " + gSfcSetupFile
-    ssh_session.sendline ("cd /tmp/; sudo pip3 install -y " + gSfcSetupFile )
+    ssh_session.sendline ("cd /tmp/; sudo pip3 install " + gSfcSetupFile )
     i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
     outdata = ssh_session.before
 

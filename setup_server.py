@@ -75,9 +75,9 @@ if not os.path.exists(srvFilename):
 
 ssh_session = ssh_apis.ssh_login(gUserInputData['server']['ip'],gUserInputData['server']['user'],gUserInputData['server']['password'])
 #print "starting install of required packages.."
-ssh_session.sendline ("sudo apt-get install python-pip git -y")
-i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
-outdata = ssh_session.before
+#ssh_session.sendline ("sudo apt-get install python-pip git -y")
+#i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
+#outdata = ssh_session.before
 
 
 ssh_session.sendline ("sudo ovs-vsctl show")
@@ -87,7 +87,7 @@ if 'ovs_version:' in outdata or 'ovs-vsctl:' in outdata:
     print "Ovs installed on end host. Doing clean and config"
     ssh_apis.ssh_sftp(gUserInputData['server']['ip'],gUserInputData['server']['user'],gUserInputData['server']['password'], srvFilename, "/tmp/"+gServerSetupFile)
     
-    ssh_session.sendline ("sudo sh /tmp/"+gServerSetupFile + " " +  gUserInputData['server']['overlay_ip'] + " " + gUserInputData['client']['overlay_ip'], gUserInputData['controller']['ip']) 
+    ssh_session.sendline ("sudo sh /tmp/"+gServerSetupFile + " " + gUserInputData['server']['overlay_ip'] + " " + gUserInputData['client']['overlay_ip'] + " " + gUserInputData['controller']['ip']) 
     i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
     outdata = ssh_session.before
 
@@ -101,7 +101,7 @@ else:
     i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
     outdata = ssh_session.before
 
-    ssh_session.sendline ("sudo sh /tmp/"+gServerSetupFile + " " +  gUserInputData['server']['overlay_ip'] + " " + gUserInputData['client']['overlay_ip'], gUserInputData['controller']['ip']) 
+    ssh_session.sendline ("sudo sh /tmp/"+gServerSetupFile + " " + gUserInputData['server']['overlay_ip'] + " " + gUserInputData['client']['overlay_ip'] + " " +  gUserInputData['controller']['ip']) 
     i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
     outdata = ssh_session.before
 

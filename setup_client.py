@@ -86,7 +86,7 @@ if 'ovs_version:' in outdata or 'ovs-vsctl:' in outdata:
     print "Ovs installed on end host. Doing clean and config"
     ssh_apis.ssh_sftp(gUserInputData['client']['ip'],gUserInputData['client']['user'],gUserInputData['client']['password'], cliFilename, "/tmp/"+gClientSetupFile)
 
-    ssh_session.sendline ("sudo sh /tmp/"+gClientSetupFile + " " + gUserInputData['server']['overlay_ip'] + " " + gUserInputData['client']['overlay_ip'], gUserInputData['controller']['ip'] )
+    ssh_session.sendline ("sudo sh /tmp/"+gClientSetupFile + " " + gUserInputData['server']['overlay_ip'] + " " + gUserInputData['client']['overlay_ip'] + " " + gUserInputData['controller']['ip'] )
     i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
     outdata = ssh_session.before
 
@@ -100,7 +100,7 @@ else:
     i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
     outdata = ssh_session.before
 
-    ssh_session.sendline ("sudo sh /tmp/"+gClientSetupFile + " " + gUserInputData['server']['overlay_ip'] + " " + gUserInputData['client']['overlay_ip'], gUserInputData['controller']['ip'] )
+    ssh_session.sendline ("sudo sh /tmp/"+gClientSetupFile + " " + gUserInputData['server']['overlay_ip'] + " " + gUserInputData['client']['overlay_ip'] + " " +  gUserInputData['controller']['ip'] )
     i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
     outdata = ssh_session.before
 
