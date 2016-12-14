@@ -12,8 +12,7 @@ Utility scripts have been provided for the following
 6. Install and setup Sample client and server Nodes.
 
 Typical SFC POC would consists of following elements
-
-1. Overlay network consisting of set of servers hosting some services and clients accessing the same.
+1. Overlay network consisting of set of servers hosting some services and clients accessing the same
 2. One or more Service Functions like Firewall, DPI that need to be inserved in the traffic path from client to server.
 3. One or more Service Function Forwarders that provide connectivity to Serivice Functions.
 
