@@ -3,7 +3,9 @@
         {
         "ip":"172.16.9.10",
         "user":"admin",
-        "password":"admin"
+        "password":"admin",
+        "dist":"",
+        "base_dir":"sfc-demo-base"
         },
     "client":
         {

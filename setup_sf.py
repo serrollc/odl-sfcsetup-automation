@@ -67,13 +67,19 @@ for node in gUserInputData['SF']:
     #print "Login to " + node['ip'] 
     ssh_session = ssh_apis.ssh_login(node['ip'],node['user'],node['password'])
 
+    #print "starting install of required packages.."
+    ssh_session.sendline ("sudo apt-get install python-pip git -y")
+    i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
+    outdata = ssh_session.before
+
+
     ssh_session.sendline ("sudo pkill -f sfc_agent.py")
-    ssh_session.expect (ssh_apis.COMMAND_PROMPT)
+    i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
     outdata = ssh_session.before
 
     #print "starting uninstall.."
     ssh_session.sendline ("sudo pip3 uninstall sfc -y")
-    ssh_session.expect (ssh_apis.COMMAND_PROMPT)
+    i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
     outdata = ssh_session.before
 
     #print "copying file.."    
@@ -83,12 +89,15 @@ for node in gUserInputData['SF']:
     #print "cd /tmp/; sudo pip3 install " + gSfcSetupFile
     ssh_session.sendline ("cd /tmp/; sudo pip3 install -y " + gSfcSetupFile )
     i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
+    outdata = ssh_session.before
 
     ssh_session.sendline ("cd /usr/local/lib/python3.4/dist-packages/sfc")
     i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
+    outdata = ssh_session.before
 
     ssh_session.sendline ("sudo python3.4 ./sfc_agent.py --rest --odl-ip-port " + gUserInputData['controller']['ip'] + ":8181 &")
     i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
+    outdata = ssh_session.before
 
     ssh_apis.ssh_logout(ssh_session)
 

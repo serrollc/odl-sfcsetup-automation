@@ -77,10 +77,16 @@ for node in gUserInputData['SFF']:
     print "trying login"
     ssh_session = ssh_apis.ssh_login(node['ip'],node['user'],node['password'])
 
+    #print "starting install of required packages.."
+    ssh_session.sendline ("sudo apt-get install python-pip git -y")
+    i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
+    outdata = ssh_session.before
+    
     print "trying show"
     ssh_session.sendline ("sudo ovs-vsctl show")
-    ssh_session.expect (ssh_apis.COMMAND_PROMPT)
+    i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
     outdata = ssh_session.before
+
     if 'ovs_version:' in outdata or 'ovs-vsctl:' in outdata:
         print "Ovs installed on end host. Doing clean and config"
         ssh_apis.ssh_sftp(node['ip'],node['user'],node['password'], sffFilename, "/tmp/"+gSffSetupFile)

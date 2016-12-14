@@ -72,20 +72,13 @@
 	    "service-function-forwarders": [
                 {
                 "name": "Node05-SFF1",
-                "ip-address": "172.16.9.22",
-                "service_node": "Node05-SN-SFF",
-                "service_function": []
-                }, 
-
-                {
-                "name": "Node05-SFF2",
                 "ip-address": "172.16.9.32",
                 "service_node": "Node05-SN-Client",
                 "service_function": []
                 },
 
                 {
-                "name": "Node05-SFF3",
+                "name": "Node05-SFF2",
                 "ip-address": "172.16.9.42",
                 "service_node": "Node05-SN-Server",
                 "service_function": []
@@ -104,13 +97,13 @@
                 {
                 "name": "Node06-SFC1",
                 "symmetric": "true",
-                "service_function": ["SF1"]
+                "service_function": ["SF1", "SF2"]
                 },
 
                 {
                 "name": "Node06-SFC2",
                 "symmetric": "true",
-                "service_function": ["SF2", "SF3"]
+                "service_function": ["SF1", "SF2", "SF3"]
                 }
 		],
 

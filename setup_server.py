@@ -74,6 +74,10 @@ if not os.path.exists(srvFilename):
     exit(0)
 
 ssh_session = ssh_apis.ssh_login(gUserInputData['server']['ip'],gUserInputData['server']['user'],gUserInputData['server']['password'])
+#print "starting install of required packages.."
+ssh_session.sendline ("sudo apt-get install python-pip git -y")
+i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
+outdata = ssh_session.before
 
 
 ssh_session.sendline ("sudo ovs-vsctl show")
