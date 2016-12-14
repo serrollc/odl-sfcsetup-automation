@@ -55,9 +55,9 @@ Installing and Running Services.
     a. python gen_config_ServiceNode.py my_odl_config.json
     b. python gen_config_ServiceFunctions.py my_odl_config.json
     c. python gen_config_ServiceFunctionsForwarders.py my_odl_config.json
-    d. python gen_config_ServiceFunctionPaths.py   my_odl_config.json
-    e. python gen_config_ServiceFunctionMetadata.py my_odl_config.json
-    f. python gen_config_ServiceFunctionChains.py  my_odl_config.json
+    d. python gen_config_ServiceFunctionMetadata.py my_odl_config.json
+    e. python gen_config_ServiceFunctionChains.py  my_odl_config.json
+    f. python gen_config_ServiceFunctionPaths.py   my_odl_config.json 
     g. python gen_config_RenderedServicePath.py    my_odl_config.json
     h. python gen_config_ServiceFunctionACLs.py    my_odl_config.json
     i. python gen_config_ServiceFunctionClassifiers.py my_odl_config.json
