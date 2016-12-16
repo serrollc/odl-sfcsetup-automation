@@ -56,11 +56,11 @@ def get_service_function_forwarders_data():
         sf_dictionary  = list()
         if len(node['service_function']) > 0:
             for ele in node['service_function']:
-                sff_dp_locator.append({"name":node['name']+"-"+str(counter)+"-dlp", "data-plane-locator": { "transport": "service-locator:vxlan-gpe", "port": 6633, "ip":node['ip-address']}, "service-function-forwarder-ovs:ovs-options": { "remote-ip": "flow", "dst-port": "6633", "key": "flow", "nsp": "flow", "nsi": "flow", "nshc1": "flow", "nshc2": "flow", "nshc3": "flow", "nshc4": "flow", "exts":"gpe" } })
-                sf_dictionary.append( { "name": ele, "sff-sf-data-plane-locator": { "sf-dpl-name": ele+"-dpl", "sff-dpl-name": node['name']+"-"+str(counter)+"-dlp" } })
+                sff_dp_locator.append({"name":node['name']+"-"+str(counter)+"-dpl", "data-plane-locator": { "transport": "service-locator:vxlan-gpe", "port": 6633, "ip":node['ip-address']}, "service-function-forwarder-ovs:ovs-options": { "remote-ip": "flow", "dst-port": "6633", "key": "flow", "nsp": "flow", "nsi": "flow", "nshc1": "flow", "nshc2": "flow", "nshc3": "flow", "nshc4": "flow", "exts":"gpe" } })
+                sf_dictionary.append( { "name": ele, "sff-sf-data-plane-locator": { "sf-dpl-name": ele+"-dpl", "sff-dpl-name": node['name']+"-"+str(counter)+"-dpl" } })
                 counter+=1
         else:
-            sff_dp_locator.append({"name":node['name']+"-"+str(counter)+"-dlp", "data-plane-locator": { "transport": "service-locator:vxlan-gpe", "port": 6633, "ip":node['ip-address']}, "service-function-forwarder-ovs:ovs-options": { "remote-ip": "flow", "dst-port": "6633", "key": "flow", "nsp": "flow", "nsi": "flow", "nshc1": "flow", "nshc2": "flow", "nshc3": "flow", "nshc4": "flow", "exts":"gpe" } }) 
+            sff_dp_locator.append({"name":node['name']+"-"+str(counter)+"-dpl", "data-plane-locator": { "transport": "service-locator:vxlan-gpe", "port": 6633, "ip":node['ip-address']}, "service-function-forwarder-ovs:ovs-options": { "remote-ip": "flow", "dst-port": "6633", "key": "flow", "nsp": "flow", "nsi": "flow", "nshc1": "flow", "nshc2": "flow", "nshc3": "flow", "nshc4": "flow", "exts":"gpe" } }) 
 
         if counter > 1:
             sffs["service-function-forwarders"]["service-function-forwarder"].append({ "name":node['name'],"service-node":node['service_node'], "service-function-forwarder-ovs:ovs-bridge": { "bridge-name": "br-sfc" }, "sff-data-plane-locator":sff_dp_locator, "service-function-dictionary":sf_dictionary })
