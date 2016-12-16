@@ -27,17 +27,30 @@ Preparing for building POC
     b. ssh service is enabled
     c. passwordless sudo user is set. (this user id would be used for configuring the host)
 4. Get the odl-sfcsetup-automation scripts on the ODL controller Node
+
      git clone https://github.com/serrollc/odl-sfcsetup-automation.git
+     
      cd odl-sfcsetup-automation
-6. Prepare Configuration for your Test Topology 
+     
+5. Prepare Configuration for your Test Topology 
+
     a. cp example_setup_config.json my_setup_config.json
-    b. Edit my_setup_config.json for node details like IP address, username, password.
-7. Prepare Configuration of ODL for your Test Topology
+    
+    b. Edit my_setup_config.json for node details like IP address, username, password
+    
+6. Prepare Configuration of ODL for your Test Topology
+
     a. cp example_odl_config.json my_odl_config.json
+    
     b. Edit my_odl_config.json as per your test topology
+    
     c. Generate ODL configuration 
+    
        python sfc_config_util.py my_odl_config.json
+       
        python sfc_delete_util.py my_odl_config.json
+       
+       
 
 Installing and Running Services.
 
