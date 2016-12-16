@@ -8,9 +8,11 @@
 
 DIST_URL="$1"
 DEMO_DIR="$2"
+ODL_ADDR="$3"
 
 
-function install_packages {
+install_packages() 
+{
     echo "Install os packages........................................"
     sudo apt-get install npm vim git git-review diffstat bridge-utils -y
 
@@ -28,7 +30,7 @@ function install_packages {
     sudo mkdir -p /usr/local/apache-maven; cd /usr/local/apache-maven
     curl https://www.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz | sudo tar -xzv
     sudo update-alternatives --install /usr/bin/mvn mvn /usr/local/apache-maven/apache-maven-3.3.9/bin/mvn 1
-    sudo update-alternatives --config mvn
+    sudo yes 0 | update-alternatives --config mvn 
 
     cat << EOF > $HOME/maven.env
 export M2_HOME=/usr/local/apache-maven/apache-maven-3.3.9
@@ -42,10 +44,11 @@ EOF
     sudo pip install docker-compose
 }
 
-function install_sfc {
+install_sfc() 
+{
     echo "Install sfc..........................................."
     cd $HOME
-    if [[ -n $DIST_URL ]]; then
+    if [ -n $DIST_URL ]; then
         #curl $DIST_URL/maven-metadata.xml | grep -A2 tar.gz | grep value | cut -f2 -d'>' | cut -f1 -d'<' | \
         #    xargs -I {} curl $DIST_URL/distribution-karaf-{}.tar.gz | tar xvz-
         curl $DIST_URL | tar xvz-
