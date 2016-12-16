@@ -78,7 +78,7 @@ Installing and Running Services.
 
 2. Configure ODL 
 
-    a. sh +x config_all.sh my_odl_config.json 
+    a. sh +x config_all.sh
     
     Above script will configure all required objects in ODL. If you wish to configure
     each object separately and observe configuration in SFC UI, following below steps
