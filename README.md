@@ -41,6 +41,10 @@ Preparing for building POC
 
 Installing and Running Services.
 
+0. If you previously configured ODL, please clean all configuration using following script
+
+    a. sh +x remove_config_all.sh
+
 1. Install and enable servies in all service nodes
 
    a. sh +x setup_all.sh my_setup_config.json
@@ -89,4 +93,4 @@ Installing and Running Services.
 
    ssh to Client Node and execute below command
    
-   ip netns exec app wget http://<overlay_server_ip> 
+   ip netns exec app wget http://overlay_server_ip
