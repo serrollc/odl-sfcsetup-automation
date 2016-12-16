@@ -44,7 +44,7 @@
             "ip-address": "172.16.9.33",
             "type": "dpi",
             "sff_name": "Node06-SFF1",
-            "service_node": "Node06-SF1"
+            "service_node": "Node06-SN-SF1"
             },
 
             {
@@ -52,7 +52,7 @@
             "ip-address": "172.16.9.43",
             "type": "firewall",
             "sff_name": "Node06-SFF1",
-            "service_node": "Node06-SF2"
+            "service_node": "Node06-SN-SF2"
             },
 
             {
@@ -60,7 +60,7 @@
             "ip-address": "172.16.9.53",
             "type": "nat",
             "sff_name": "Node06-SFF1",            
-            "service_node": "Node06-SF3"
+            "service_node": "Node06-SN-SF3"
             }
         ],
 
