@@ -5,12 +5,13 @@ from pprint import pprint
 #import paramiko
 import traceback, logging
 import ssh_apis
+import pexpect
 
 #Global data
 gUserInputData      = ""
 gOvsSetupFile       = "clean_install_ovs.sh" 
 gClientSetupFile    = "clean_start_client.sh" 
-
+gOdlExpectTimeout       = 330
 
 def validate_and_load_input(input_file):
     global gUserInputData
@@ -75,9 +76,9 @@ if not os.path.exists(cliFilename):
 
 ssh_session = ssh_apis.ssh_login(gUserInputData['client']['ip'],gUserInputData['client']['user'],gUserInputData['client']['password'])
 #print "starting install of required packages.."
-ssh_session.sendline ("sudo apt-get install python-pip git -y")
-i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
-outdata = ssh_session.before
+#ssh_session.sendline ("sudo apt-get install python-pip git -y")
+#i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
+#outdata = ssh_session.before
 
 ssh_session.sendline ("sudo ovs-vsctl show")
 ssh_session.expect (ssh_apis.COMMAND_PROMPT)
@@ -97,7 +98,8 @@ else:
     ssh_apis.ssh_sftp(gUserInputData['client']['ip'],gUserInputData['client']['user'],gUserInputData['client']['password'], cliFilename, "/tmp/"+gClientSetupFile)
 
     ssh_session.sendline ("sudo sh /tmp/"+gOvsSetupFile)
-    i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
+    #i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
+    i = ssh_session.expect (ssh_apis.COMMAND_PROMPT, timeout=gOdlExpectTimeout)
     outdata = ssh_session.before
 
     ssh_session.sendline ("sudo sh /tmp/"+gClientSetupFile + " " + gUserInputData['server']['overlay_ip'] + " " + gUserInputData['client']['overlay_ip'] + " " +  gUserInputData['controller']['ip'] )

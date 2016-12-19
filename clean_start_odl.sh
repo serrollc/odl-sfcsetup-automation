@@ -6,24 +6,41 @@ ODL_ADDR="$3"
 
 stop_sfc () 
 {
-    while [ 1 ]
+    retries=3
+    while [ $retries -gt 0 ]
     do
         ODL_STATUS=`$HOME/$DEMO_DIR/sfc-karaf/target/assembly/bin/status`
+        if [ "" = "$ODL_STATUS" ];
+        then 
+            ODL_STATUS="Not Running ..."
+        fi
+
         IS_ODL_RUNNING=`echo $ODL_STATUS | grep "Not Running ...\|The container is not running" | wc -l`
-        if [ "0" = "$IS_ODL_RUNNING"  ] ; then     
+        if [ "1" = "$IS_ODL_RUNNING"  ] ; then     
             echo "Odl not running ..."
             return 
         fi
         cd $HOME/$DEMO_DIR/sfc-karaf/target/assembly/
         bin/stop
-        sleep 10
+        sleep 30
+        retries=$(( $retries - 1 ))
     done
+
+    if [ $retries -eq 0 ]; then
+        echo "Karaf not stopped. Exit immediately"
+        exit 1
+    fi
 }
 
 start_sfc () 
 {
     cd $HOME/$DEMO_DIR/sfc-karaf/target/assembly/
+    if grep -q "odl-sfc-provider,odl-sfc-core,odl-sfc-ui,odl-sfc-openflow-renderer,odl-sfc-scf-openflow,odl-sfc-sb-rest,odl-sfc-ovs,odl-sfc-netconf" etc/org.apache.karaf.features.cfg; 
+    then
+       echo "Boot feature already added ..."
+    else
     sed -i "/^featuresBoot[ ]*=/ s/$/,odl-sfc-provider,odl-sfc-core,odl-sfc-ui,odl-sfc-openflow-renderer,odl-sfc-scf-openflow,odl-sfc-sb-rest,odl-sfc-ovs,odl-sfc-netconf/" etc/org.apache.karaf.features.cfg;
+    fi
 
     if grep -q "ovsdb.address" etc/custom.properties; then 
         sed -i "s/ovsdb.address.*/ovsdb.address=${ODL_ADDR}/" etc/custom.properties;
@@ -34,10 +51,10 @@ start_sfc ()
     echo "log4j.logger.org.opendaylight.sfc = DEBUG" >> etc/org.ops4j.pax.logging.cfg;
     rm -rf journal snapshots; bin/start
     #wait for sfc ready
-    retries=3
+    retries=2
     while [ $retries -gt 0 ]
     do
-        sleep 10
+        sleep 30
         sfcfeatures=$($HOME/$DEMO_DIR/sfc-karaf/target/assembly/bin/client -u karaf 'feature:list -i' 2>&1 | grep odl-sfc | wc -l)
         if [ $sfcfeatures -eq 9 ]; then
             break
@@ -56,8 +73,13 @@ if test -f "$HOME/$DEMO_DIR/sfc-karaf/target/assembly/version.properties";
 then 
     #STOP ODL karaf
     ODL_STATUS=`$HOME/$DEMO_DIR/sfc-karaf/target/assembly/bin/status`
+    if [ "" = "$ODL_STATUS" ];
+    then 
+        ODL_STATUS="Not Running ..."
+    fi
+
     IS_ODL_RUNNING=`echo $ODL_STATUS | grep "Not Running ...\|The container is not running" | wc -l`
-    if [ "0" = "$IS_ODL_RUNNING"  ] ; then 
+    if [ "1" = "$IS_ODL_RUNNING"  ] ; then 
         echo "Odl not running ..."
     else 
         echo "Stopping karaf ...  "

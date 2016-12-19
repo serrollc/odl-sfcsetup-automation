@@ -5,12 +5,13 @@ from pprint import pprint
 #import paramiko
 import traceback, logging
 import ssh_apis
+import pexpect 
 
 #Global data
 gUserInputData      = ""
 gOvsSetupFile       = "clean_install_ovs.sh" 
 gSffSetupFile    = "clean_start_sff.sh" 
-
+gOdlExpectTimeout       = 330
 
 def validate_and_load_input(input_file):
     global gUserInputData
@@ -103,7 +104,8 @@ for node in gUserInputData['SFF']:
         ssh_apis.ssh_sftp(node['ip'],node['user'],node['password'], sffFilename, "/tmp/"+gSffSetupFile)
 
         ssh_session.sendline ("sudo sh /tmp/"+gOvsSetupFile)
-        i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
+        #i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
+        i = ssh_session.expect (ssh_apis.COMMAND_PROMPT, timeout=gOdlExpectTimeout)
         outdata = ssh_session.before
 
         ssh_session.sendline ("sudo sh /tmp/"+gSffSetupFile + " " + gUserInputData['controller']['ip']) 
