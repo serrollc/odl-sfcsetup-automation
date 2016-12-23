@@ -58,7 +58,7 @@
             {
             "name" : "SF3",
             "ip-address": "172.16.9.53",
-            "type": "nat",
+            "type": "dpi",
             "sff_name": "Node06-SFF1",            
             "service_node": "Node06-SN-SF3"
             }
