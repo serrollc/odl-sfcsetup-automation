@@ -34,6 +34,11 @@ sudo ip netns exec app ip link set dev veth-app up
 sudo ip netns exec app ip link set dev lo up
 sudo ip netns exec app ifconfig veth-app mtu 1400
 
+#kill all python http servers in netns
+sudo pkill -f 'python -m SimpleHTTPServer 80'
+#kill all ssh server except one with -D
+sudo ps -ef | grep "/usr/sbin/sshd" | grep -v "sshd -D" |head -n -1 | awk '{print $2}' | sudo xargs kill
+
 echo "Starting http server ..."
 sudo ip netns exec app python -m SimpleHTTPServer 80 > /tmp/http_server.log 2>&1  &
 echo "Starting ssh server .."
