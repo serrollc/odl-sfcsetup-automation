@@ -67,10 +67,13 @@ for node in gUserInputData['SF']:
     #print "Login to " + node['ip'] 
     ssh_session = ssh_apis.ssh_login(node['ip'],node['user'],node['password'])
 
-    #print "starting install of required packages.."
-    #ssh_session.sendline ("sudo apt-get install python-pip git -y")
-    #i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
-    #outdata = ssh_session.before
+    print "starting installation of required packages.."
+    ssh_session.sendline ("sudo apt-get install -y python-pip")
+    i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
+    outdata = ssh_session.before
+    ssh_session.sendline ("sudo apt-get install -y git")
+    i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
+    outdata = ssh_session.before
 
 
     ssh_session.sendline ("sudo pkill -f sfc_agent.py")

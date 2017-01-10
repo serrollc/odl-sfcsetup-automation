@@ -36,7 +36,7 @@ gLogFd =  logging.getLogger(__name__)
 
 if len(sys.argv) < 2 :
     print ""
-    print "Usage: " + sys.argv[0] + "<full path to file containing host config in JSON format>"
+    print "Usage: " + sys.argv[0] + " <full path to file containing host config in JSON format>"
     exit(0)
 
 #check if input file exists
@@ -75,11 +75,13 @@ if not os.path.exists(srvFilename):
     exit(0)
 
 ssh_session = ssh_apis.ssh_login(gUserInputData['server']['ip'],gUserInputData['server']['user'],gUserInputData['server']['password'])
-#print "starting install of required packages.."
-#ssh_session.sendline ("sudo apt-get install python-pip git -y")
-#i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
-#outdata = ssh_session.before
-
+print "starting installation of required packages.."
+ssh_session.sendline ("sudo apt-get install -y python-pip")
+i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
+outdata = ssh_session.before
+ssh_session.sendline ("sudo apt-get install -y git")
+i = ssh_session.expect (ssh_apis.COMMAND_PROMPT)
+outdata = ssh_session.before
 
 ssh_session.sendline ("sudo ovs-vsctl show")
 ssh_session.expect (ssh_apis.COMMAND_PROMPT)
